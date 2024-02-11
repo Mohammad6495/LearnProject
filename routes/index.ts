@@ -6,6 +6,7 @@ import teacherRoutes from './teacher'
 import eductionalRoutes from './eductional'
 import courseRoutes from './course'
 import familiarServiceRoutes from './familiarService'
+import requestCourseRoutes from './requestCourse'
 
 const appRouter = express();
 // login
@@ -704,5 +705,125 @@ appRouter.use('/course', courseRoutes)
 *         description: Successful response
 */
 appRouter.use('/familiarservice', familiarServiceRoutes)
+// createdfamiliarservice
+/**
+* @swagger
+* /requestCourse/create:
+*   post:
+*     tags:
+*       - RequestCourse
+*     security:
+*       - BearerAuth: []
+*     requestBody:
+*       content:
+*         application/json:
+*           schema:
+*             type: object
+*             properties:
+*               phoneNumber:
+*                 type: string
+*               favoriotArea:
+*                 type: string
+*               course:
+*                 type: string
+*     responses:
+*       '200':
+*         description: Successful response
+*/
+// createdClientrequestCourse
+/**
+* @swagger
+* /requestCourse/createClient:
+*   post:
+*     tags:
+*       - RequestCourse
+*     requestBody:
+*       content:
+*         application/json:
+*           schema:
+*             type: object
+*             properties:
+*               phoneNumber:
+*                 type: string
+*               favoriotArea:
+*                 type: string
+*               course:
+*                 type: string
+*     responses:
+*       '200':
+*         description: Successful response
+*/
+// editrequestCourse
+/**
+* @swagger
+* /requestCourse/edit:
+*   post:
+*     tags:
+*       - RequestCourse
+*     security:
+*       - BearerAuth: []
+*     requestBody:
+*       content:
+*         application/json:
+*           schema:
+*             type: object
+*             properties:
+*               id:
+*                 type: string
+*               phoneNumber:
+*                 type: string
+*               favoriotArea:
+*                 type: string
+*               course:
+*                 type: string
+*     responses:
+*       '200':
+*         description: Successful response
+*/
+// getAll
+/**
+* @swagger
+* /requestCourse/getAll:
+*   get:
+*     tags:
+*       - RequestCourse
+*     security:
+*       - BearerAuth: []
+*     parameters:
+*       - in: query
+*         name: search
+*         schema:
+*           type: string
+*       - in: query
+*         name: pageSize
+*         schema:
+*           type: string
+*       - in: query
+*         name: currentPage
+*         schema:
+*           type: string
+*     responses:
+*       '200':
+*         description: Successful response
+*/
+// removerequestCourse
+/**
+* @swagger
+* /requestCourse/remove:
+*   delete:
+*     tags:
+*       - RequestCourse
+*     security:
+*       - BearerAuth: []
+*     parameters:
+*       - in: query
+*         name: id
+*         schema:
+*           type: string
+*     responses:
+*       '200':
+*         description: Successful response
+*/
+appRouter.use('/requestCourse', requestCourseRoutes)
 
 export default appRouter

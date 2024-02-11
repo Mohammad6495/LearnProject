@@ -57,3 +57,10 @@ export interface IFamiliarService {
   phoneNumber?: string,
   favoriotArea?:string
 }
+
+export interface IRequestCourse {
+  id?: string,
+  phoneNumber?: string,
+  favoriotArea?:string,
+  course?: Types.ObjectId
+}

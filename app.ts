@@ -49,7 +49,7 @@ const serverStart = async () => {
     app.use("/assets/upload", express.static(path.join(__dirname, "assets", "upload")));
 
     app.use((req, res, next) => {
-        const allowedOrigins = [ "http://localhost:3011", "http://91.206.177.124:8080"];
+        const allowedOrigins = ["http://localhost:5173", "http://localhost:3011", "http://91.206.177.124:8080", "http://91.206.177.124:7000"];
         const origin = req.headers.origin;
 
         if (allowedOrigins.includes(origin as any)) {
