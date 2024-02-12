@@ -9,11 +9,12 @@ import {
     GetAllClientAction
 } from '../../controllers/categoryController'
 import checkAuhtUser from "../../middlewares/checkAuthUser";
+import fileUpload from "../../middlewares/fileUpload";
 const router = express.Router();
 const validation = new CategoryValidation();
 
-router.post("/create", checkAuhtUser, validation.categoryValidation(), CreatedAction);
-router.post("/edit", checkAuhtUser, validation.categoryValidation(), EditAction);
+router.post("/create", checkAuhtUser,fileUpload.single('image'),validation.categoryValidation(), CreatedAction);
+router.post("/edit", checkAuhtUser, fileUpload.single('image'),validation.categoryValidation(), EditAction);
 router.get('/getAll', checkAuhtUser, GetAllAction)
 router.get('/getAllClient', GetAllClientAction)
 router.post('/changeavailable', checkAuhtUser, ChangeIsAvailableAction)

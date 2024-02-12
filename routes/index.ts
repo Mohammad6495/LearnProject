@@ -65,12 +65,14 @@ appRouter.use('/account', accountRoutes)
 *       - BearerAuth: []
 *     requestBody:
 *       content:
-*         application/json:
+*         multipart/form-data:
 *           schema:
 *             type: object
 *             properties:
 *               title:
 *                 type: string
+*               image:
+*                 type: file
 *     responses:
 *       '200':
 *         description: Successful response
@@ -86,14 +88,16 @@ appRouter.use('/account', accountRoutes)
 *       - BearerAuth: []
 *     requestBody:
 *       content:
-*         application/json:
+*         multipart/form-data:
 *           schema:
 *             type: object
 *             properties:
-*               id:
-*                 type: string
 *               title:
 *                 type: string
+*               id:
+*                 type: string
+*               image:
+*                 type: file
 *     responses:
 *       '200':
 *         description: Successful response

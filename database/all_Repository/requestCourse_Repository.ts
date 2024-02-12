@@ -42,6 +42,7 @@ class RequestCourseRepository {
         const requestCourse = await RequestCourse.find({ ...searchCondition, isActive: true })
             .skip(skip)
             .limit(limit)
+            .populate('course')
 
         const totalRequestCourse = await RequestCourse.find({ isActive: true }).countDocuments(
             searchCondition
@@ -51,7 +52,6 @@ class RequestCourseRepository {
             data: requestCourse.map(item => item.toObject({ getters: true }))
         }
     }
-
     async Delete({ id }: { id: Types.ObjectId }) {
         const validObjectId = Types.ObjectId.isValid(id);
         if (!validObjectId) {

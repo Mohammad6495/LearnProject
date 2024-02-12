@@ -13,13 +13,13 @@ class CategoryServices {
     this.repository = new CategoryRepository();
   }
 
-  async CreatedCategory(title: string) {
-    const createdCategory = await this.repository.Created({ title });
+  async CreatedCategory(title: string, image:string) {
+    const createdCategory = await this.repository.Created({ title, image });
     return FormateData({ data: createdCategory.toObject({ getters: true }) });
   }
 
-  async EditCategory(title: string, id: string) {
-    const editCategory = await this.repository.Edit({ title, id: id });
+  async EditCategory(title: string, id: string, image:string) {
+    const editCategory = await this.repository.Edit({ title, id: id, image });
     return FormateData({ data: editCategory.toObject({ getters: true }) });
   }
   async GetCategory(currentPage: string, pageSize: string, search: string) {

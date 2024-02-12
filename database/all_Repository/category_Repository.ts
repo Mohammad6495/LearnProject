@@ -4,19 +4,21 @@ import Category from "../models/category_collection";
 import { ICategory } from "../../utils/interfaces";
 
 class CategoryRepository {
-    async Created({ title }: ICategory) {
+    async Created({ title, image }: ICategory) {
         const createdCategory = new Category({
-            title: title
+            title: title,
+            image
         })
         const categoryResult = await createdCategory.save();
         return categoryResult
     }
-    async Edit({ id, title }: ICategory) {
+    async Edit({ id, title, image }: ICategory) {
         const findCategory = await Category.findById(id);
         if (!findCategory) {
             throw new HttpError(["دسته بندی مورد نظر یافت نشد!"], 422);
         }
         findCategory.title = title as string;
+        findCategory.image = image ? image : findCategory.image as string
         const editResult = await findCategory.save();
         return editResult;
     }

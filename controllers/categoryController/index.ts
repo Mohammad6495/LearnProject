@@ -11,12 +11,12 @@ export const CreatedAction = async (
   next: NextFunction
 ) => {
   try {
-    const { title } = req.body;
+    const { title, image = req?.file?.path || undefined } = req.body;
     const errors = myValidationResult(req).array();
     if (errors.length !== 0) {
       throw new HttpError(errors, 401, null);
     }
-    const data = await services.CreatedCategory(title);
+    const data = await services.CreatedCategory(title, image);
     res.json({ ...data });
   } catch (err) {
     next(err);
@@ -29,12 +29,12 @@ export const EditAction = async (
   next: NextFunction
 ) => {
   try {
-    const { title, id } = req.body;
+    const { title, id, image = req?.file?.path || undefined } = req.body;
     const errors = myValidationResult(req).array();
     if (errors.length !== 0) {
       throw new HttpError(errors, 401, null);
     }
-    const data = await services.EditCategory(title, id);
+    const data = await services.EditCategory(title, id, image);
     res.json({ ...data });
   } catch (err) {
     next(err);

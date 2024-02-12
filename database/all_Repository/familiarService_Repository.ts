@@ -37,11 +37,11 @@ class FamiliarServiceRepository {
                 ]
             }
             : {};
-        const familiarService = await FamiliarService.find({ ...searchCondition, isActive: true })
+        const familiarService = await FamiliarService.find({ ...searchCondition})
             .skip(skip)
             .limit(limit)
 
-        const totalFamiliarService = await FamiliarService.find({ isActive: true }).countDocuments(
+        const totalFamiliarService = await FamiliarService.find({ }).countDocuments(
             searchCondition
         );
         return {
