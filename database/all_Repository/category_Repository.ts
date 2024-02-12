@@ -23,7 +23,7 @@ class CategoryRepository {
         return editResult;
     }
     async GetAll() {
-        const allCategories = await Category.find({ isActive: true });
+        const allCategories = await Category.find({ isActive: true }).sort({ createdAt: -1 });
         return allCategories
     }
     async Get({ pageSize, currentPage, search }: { pageSize: string, currentPage: string, search: string }) {
@@ -40,7 +40,7 @@ class CategoryRepository {
         const category = await Category.find({ ...searchCondition, isActive: true })
             .skip(skip)
             .limit(limit)
-
+            .sort({ createdAt: -1 })
         const totalCategory = await Category.find({ isActive: true }).countDocuments(
             searchCondition
         );

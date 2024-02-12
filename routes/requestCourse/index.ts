@@ -4,7 +4,8 @@ import {
     CreatedAction,
     EditAction,
     GetAllAction,
-    DeleteRequestCourseAction
+    DeleteRequestCourseAction,
+    DetailRequestCourseAction
 } from '../../controllers/requestCourseController'
 import checkAuhtUser from "../../middlewares/checkAuthUser";
 const router = express.Router();
@@ -15,5 +16,6 @@ router.post("/createClient", validation.requestCourseValidation(), CreatedAction
 router.post("/edit", checkAuhtUser, validation.requestCourseValidation(), EditAction);
 router.get('/getAll', checkAuhtUser, GetAllAction)
 router.delete('/remove', checkAuhtUser, DeleteRequestCourseAction)
+router.post('/detail', checkAuhtUser, DetailRequestCourseAction)
 
 export default router;

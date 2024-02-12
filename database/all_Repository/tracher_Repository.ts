@@ -34,6 +34,7 @@ class TeacherRepository {
         const teacher = await Teacher.find({ ...searchCondition, isActive: true })
             .skip(skip)
             .limit(limit)
+            .sort({ createdAt: -1 })
             .populate("courses");
 
         const totalTeacher = await Teacher.find({ isActive: true }).countDocuments(

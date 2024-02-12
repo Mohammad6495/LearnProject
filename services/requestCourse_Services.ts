@@ -31,6 +31,10 @@ class RequestCourseServices {
     const data = await this.repository.Delete({ id });
     return FormateData({ data: data });
   }
+  async DetailRequestCourse(id: Types.ObjectId) {
+    const data = await this.repository.Detail({ id });
+    return FormateData({ data: data });
+  }
 }
 
 export default RequestCourseServices;

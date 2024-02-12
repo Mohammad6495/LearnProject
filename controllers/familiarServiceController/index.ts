@@ -69,3 +69,17 @@ export const DeleteFamiliarServiceAction = async (
     next(err);
   }
 };
+
+export const DetailFamiliarServiceAction = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.query;
+    const data = await services.DetailFamiliarService(id as any);
+    res.json({ ...data });
+  } catch (err) {
+    next(err);
+  }
+};

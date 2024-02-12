@@ -36,7 +36,7 @@ class EductionalRepository {
         const eductional = await Eductional.find({ ...searchCondition, isActive: true })
             .skip(skip)
             .limit(limit)
-
+            .sort({ createdAt: -1 })
         const totalEductional = await Eductional.find({ isActive: true }).countDocuments(
             searchCondition
         );

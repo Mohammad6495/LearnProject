@@ -40,7 +40,7 @@ class FamiliarServiceRepository {
         const familiarService = await FamiliarService.find({ ...searchCondition})
             .skip(skip)
             .limit(limit)
-
+            .sort({ createdAt: -1 })
         const totalFamiliarService = await FamiliarService.find({ }).countDocuments(
             searchCondition
         );
@@ -62,6 +62,19 @@ class FamiliarServiceRepository {
         }
 
         return deletedFamiliarService;
+    }
+    async Detail({ id }: { id: Types.ObjectId }) {
+        const validObjectId = Types.ObjectId.isValid(id);
+        if (!validObjectId) {
+            throw new HttpError(["فرمت شناسه نادرست است!"], 422);
+        }
+        const findFamiliarService = await FamiliarService.findById(id);
+
+        if (!findFamiliarService) {
+            throw new HttpError(["اطلاعات مورد نظر یافت نشد!"], 422);
+        }
+
+        return findFamiliarService;
     }
 }
 

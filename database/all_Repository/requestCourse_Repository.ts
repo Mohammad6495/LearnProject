@@ -42,6 +42,7 @@ class RequestCourseRepository {
         const requestCourse = await RequestCourse.find({ ...searchCondition, isActive: true })
             .skip(skip)
             .limit(limit)
+            .sort({ createdAt: -1 })
             .populate('course')
 
         const totalRequestCourse = await RequestCourse.find({ isActive: true }).countDocuments(
@@ -66,6 +67,19 @@ class RequestCourseRepository {
         deletedRequestCourse.isActive = false
         await deletedRequestCourse.save()
         return deletedRequestCourse;
+    }
+    async Detail({ id }: { id: Types.ObjectId }) {
+        const validObjectId = Types.ObjectId.isValid(id);
+        if (!validObjectId) {
+            throw new HttpError(["فرمت شناسه نادرست است!"], 422);
+        }
+        const findRequestCourse = await RequestCourse.findById(id).populate('course');
+
+        if (!findRequestCourse) {
+            throw new HttpError(["اطلاعات مورد نظر یافت نشد!"], 422);
+        }
+
+        return findRequestCourse;
     }
 }
 

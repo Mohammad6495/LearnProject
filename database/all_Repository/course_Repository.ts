@@ -75,6 +75,7 @@ class CourseRepository {
     }
     async GetAll() {
         const course = await Course.find({ isActive: true, isAvailable: true })
+            .sort({ createdAt: -1 })
             .populate('teacher')
             .populate('category')
             .populate('eductional')
@@ -91,21 +92,23 @@ class CourseRepository {
                 ]
             }
             : {};
+
         const course = await Course.find({ ...searchCondition, isActive: true })
             .skip(skip)
             .limit(limit)
+            .sort({ createdAt: -1 })
             .populate('teacher')
             .populate('category')
-            .populate('eductional')
+            .populate('eductional');
 
-        const totalCourse = await Course.find({ isActive: true }).countDocuments(
-            searchCondition
-        );
+        const totalCourse = await Course.find({ isActive: true }).countDocuments(searchCondition);
+
         return {
             totalRecords: totalCourse,
             data: course.map(item => item.toObject({ getters: true }))
-        }
+        };
     }
+
 
     async ChangeIsAvailable({ id }: { id: Types.ObjectId }) {
         const validObjectId = Types.ObjectId.isValid(id);

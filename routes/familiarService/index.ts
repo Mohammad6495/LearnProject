@@ -4,7 +4,8 @@ import {
     CreatedAction,
     EditAction,
     GetAllAction,
-    DeleteFamiliarServiceAction
+    DeleteFamiliarServiceAction,
+    DetailFamiliarServiceAction
 } from '../../controllers/familiarServiceController'
 import checkAuhtUser from "../../middlewares/checkAuthUser";
 const router = express.Router();
@@ -15,5 +16,6 @@ router.post("/createClient", validation.familiarServiceValidation(), CreatedActi
 router.post("/edit", checkAuhtUser, validation.familiarServiceValidation(), EditAction);
 router.get('/getAll', checkAuhtUser, GetAllAction)
 router.delete('/remove', checkAuhtUser, DeleteFamiliarServiceAction)
+router.post('/detail', checkAuhtUser, DetailFamiliarServiceAction)
 
 export default router;

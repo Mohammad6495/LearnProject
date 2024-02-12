@@ -53,7 +53,6 @@ const appRouter = express();
 *         description: Successful response
 */
 appRouter.use('/account', accountRoutes)
-
 // createdCategory
 /**
 * @swagger
@@ -176,7 +175,6 @@ appRouter.use('/account', accountRoutes)
 *         description: Successful response
 */
 appRouter.use('/category', categoryRoutes)
-
 // createdTeacher
 /**
 * @swagger
@@ -359,7 +357,6 @@ appRouter.use('/teacher', teacherRoutes)
 *         description: Successful response
 */
 appRouter.use('/eductional', eductionalRoutes)
-
 // createdcourse
 /**
 /**
@@ -708,6 +705,24 @@ appRouter.use('/course', courseRoutes)
 *       '200':
 *         description: Successful response
 */
+// detailfamiliarservice
+/**
+* @swagger
+* /familiarservice/detail:
+*   post:
+*     tags:
+*       - Familiarservice
+*     security:
+*       - BearerAuth: []
+*     parameters:
+*       - in: query
+*         name: id
+*         schema:
+*           type: string
+*     responses:
+*       '200':
+*         description: Successful response
+*/
 appRouter.use('/familiarservice', familiarServiceRoutes)
 // createdfamiliarservice
 /**
@@ -815,6 +830,24 @@ appRouter.use('/familiarservice', familiarServiceRoutes)
 * @swagger
 * /requestCourse/remove:
 *   delete:
+*     tags:
+*       - RequestCourse
+*     security:
+*       - BearerAuth: []
+*     parameters:
+*       - in: query
+*         name: id
+*         schema:
+*           type: string
+*     responses:
+*       '200':
+*         description: Successful response
+*/
+// detailrequestCourse
+/**
+* @swagger
+* /requestCourse/detail:
+*   post:
 *     tags:
 *       - RequestCourse
 *     security:

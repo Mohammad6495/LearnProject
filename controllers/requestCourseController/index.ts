@@ -69,3 +69,16 @@ export const DeleteRequestCourseAction = async (
     next(err);
   }
 };
+export const DetailRequestCourseAction = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.query;
+    const data = await services.DetailRequestCourse(id as any);
+    res.json({ ...data });
+  } catch (err) {
+    next(err);
+  }
+};
