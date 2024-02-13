@@ -31,7 +31,6 @@ class RequestCourseRepository {
     async Get({ pageSize, currentPage, search }: { pageSize: string, currentPage: string, search: string }) {
         const limit = parseInt(pageSize) || 10;
         const skip = (parseInt(currentPage) - 1) * limit || 0;
-
         const searchCondition = search
             ? {
                 $or: [
@@ -39,11 +38,20 @@ class RequestCourseRepository {
                 ]
             }
             : {};
+
         const requestCourse = await RequestCourse.find({ ...searchCondition, isActive: true })
             .skip(skip)
             .limit(limit)
             .sort({ createdAt: -1 })
-            .populate('course')
+            .populate({
+                path: 'course',
+                populate: [
+                    { path: 'teacher' },
+                    { path: 'category' },
+                    { path: 'eductional' },
+                ]
+            });
+
 
         const totalRequestCourse = await RequestCourse.find({ isActive: true }).countDocuments(
             searchCondition

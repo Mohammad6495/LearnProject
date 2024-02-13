@@ -412,6 +412,7 @@ appRouter.use('/eductional', eductionalRoutes)
 *       '200':
 *         description: Successful response
 */
+
 // editcourse
 /**
 * @swagger
@@ -499,26 +500,36 @@ appRouter.use('/eductional', eductionalRoutes)
 /**
 * @swagger
 * /course/getAllClient:
-*   get:
+*   post:
 *     tags:
 *       - Course
-*     parameters:
-*       - in: query
-*         name: search
-*         schema:
-*           type: string
-*       - in: query
-*         name: pageSize
-*         schema:
-*           type: string
-*       - in: query
-*         name: currentPage
-*         schema:
-*           type: string
+*     consumes:
+*       - multipart/form-data
+*     requestBody:
+*       content:
+*         multipart/form-data:
+*           schema:
+*             type: object
+*             properties:
+*               search:
+*                 type: string
+*               pageSize:
+*                 type: string
+*               currentPage:
+*                 type: string
+*               categoryId:
+*                 type: array
+*                 items:
+*                   type: string
+*               courseConditions:
+*                 type: array
+*                 items:
+*                   type: string
 *     responses:
 *       '200':
 *         description: Successful response
 */
+
 // changeavailable
 /**
 * @swagger

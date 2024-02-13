@@ -85,9 +85,15 @@ class CourseServices {
     const getCourse = await this.repository.Get({ currentPage, pageSize, search });
     return FormateData({ data: getCourse });
   }
-  async GetCourseClient() {
-    const getCourse = await this.repository.GetAll();
-    return FormateData({ data: getCourse.map(item => item.toObject({ getters: true })) });
+  async GetCourseClient(
+    currentPage: string,
+    pageSize: string,
+    search: string,
+    categoryId: string,
+    courseConditions: string
+  ) {
+    const getCourse = await this.repository.GetAll(currentPage, pageSize, search, categoryId, courseConditions);
+    return FormateData({ data: getCourse });
   }
   async DeleteCourse(id: Types.ObjectId) {
     const data = await this.repository.Delete({ id });

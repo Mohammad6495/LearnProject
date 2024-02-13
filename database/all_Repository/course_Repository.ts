@@ -73,13 +73,45 @@ class CourseRepository {
         const editResult = await findCategory.save();
         return editResult;
     }
-    async GetAll() {
-        const course = await Course.find({ isActive: true, isAvailable: true })
+    async GetAll(
+        currentPage: string,
+        pageSize: string,
+        search: string,
+        categoryId: string,
+        courseConditions: string
+    ) {
+        const limit = parseInt(pageSize) || 10;
+        const skip = (parseInt(currentPage) - 1) * limit || 0;
+
+        const searchCondition: Record<string, any> = { isActive: true };
+
+        if (search) {
+            searchCondition.$or = [
+                { title: { $regex: search, $options: "i" } },
+            ];
+        }
+        if (categoryId) {
+            searchCondition.category = { $in: categoryId.split(',').map(id => id) };
+        } 
+
+        if (courseConditions) {
+            searchCondition.courseConditions = { $in: courseConditions.split(',').map(condition => new RegExp(condition, 'i')) };
+        }
+        
+        const course = await Course.find({ ...searchCondition, isActive: true })
+            .skip(skip)
+            .limit(limit)
             .sort({ createdAt: -1 })
             .populate('teacher')
             .populate('category')
-            .populate('eductional')
-        return course
+            .populate('eductional');
+
+        const totalCourse = await Course.find({ isActive: true }).countDocuments(searchCondition);
+
+        return {
+            totalRecords: totalCourse,
+            data: course.map(item => item.toObject({ getters: true }))
+        };
     }
     async Get({ pageSize, currentPage, search }: { pageSize: string, currentPage: string, search: string }) {
         const limit = parseInt(pageSize) || 10;
