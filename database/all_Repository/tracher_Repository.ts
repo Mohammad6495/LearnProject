@@ -1,22 +1,28 @@
 import { Types } from "mongoose";
 import HttpError from "../../utils/app_error";
 import Teacher from "../models/teacher_collection";
-import {  ITeacher } from "../../utils/interfaces";
+import { ITeacher } from "../../utils/interfaces";
 
 class TeacherRepository {
-    async Created({ name }: ITeacher) {
+    async Created({ name, description, image, workExperience }: ITeacher) {
         const createdTeacher = new Teacher({
-            name: name
+            name: name,
+            description,
+            image,
+            workExperience
         })
         const teacherResult = await createdTeacher.save();
         return teacherResult
     }
-    async Edit({ id, name }: ITeacher) {
+    async Edit({ id, name, description, image, workExperience }: ITeacher) {
         const findCategory = await Teacher.findById(id);
         if (!findCategory) {
             throw new HttpError(["استاد مورد نظر یافت نشد!"], 422);
         }
+        findCategory.description = description as string;
         findCategory.name = name as string;
+        findCategory.image = image as string;
+        findCategory.workExperience = workExperience as string;
         const editResult = await findCategory.save();
         return editResult;
     }
@@ -48,8 +54,8 @@ class TeacherRepository {
 
     async Delete({ id }: { id: Types.ObjectId }) {
         const validObjectId = Types.ObjectId.isValid(id);
-        if(!validObjectId) {
-           throw new HttpError(["فرمت شناسه نادرست است!"], 422);
+        if (!validObjectId) {
+            throw new HttpError(["فرمت شناسه نادرست است!"], 422);
         }
         const deletedTeacher = await Teacher.findOneAndDelete({ _id: id });
 

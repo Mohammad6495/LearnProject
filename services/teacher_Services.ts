@@ -4,6 +4,7 @@ import TeacherRepository from "../database/all_Repository/tracher_Repository";
 import {
   FormateData,
 } from "../utils/utility";
+import { ITeacher } from "../utils/interfaces";
 
 
 class TeacherServices {
@@ -13,13 +14,13 @@ class TeacherServices {
     this.repository = new TeacherRepository();
   }
 
-  async CreatedTeacher(name: string) {
-    const createdTeacher = await this.repository.Created({ name });
+  async CreatedTeacher({ name, description, image, workExperience }: ITeacher) {
+    const createdTeacher = await this.repository.Created({ name, description, image, workExperience });
     return FormateData({ data: createdTeacher.toObject({ getters: true }) });
   }
 
-  async EditTeacher(name: string, id: string) {
-    const editTeacher = await this.repository.Edit({ name, id });
+  async EditTeacher({ id, name, description, image, workExperience }: ITeacher) {
+    const editTeacher = await this.repository.Edit({ name, description, image, workExperience, id });
     return FormateData({ data: editTeacher.toObject({ getters: true }) });
   }
   async GetTeacher(currentPage: string, pageSize: string, search: string) {

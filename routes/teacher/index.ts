@@ -7,11 +7,12 @@ import {
     GetAllAction
 } from '../../controllers/teacherController'
 import checkAuhtUser from "../../middlewares/checkAuthUser";
+import fileUpload from "../../middlewares/fileUpload";
 const router = express.Router();
 const validation = new TeacherValidation();
 
-router.post("/create", checkAuhtUser, validation.teacherValidation(), CreatedAction);
-router.post("/edit", checkAuhtUser, validation.teacherValidation(), EditAction);
+router.post("/create", checkAuhtUser,fileUpload.single('image'), validation.teacherValidation(), CreatedAction);
+router.post("/edit", checkAuhtUser,fileUpload.single('image'), validation.teacherValidation(), EditAction);
 router.get('/getAll', checkAuhtUser, GetAllAction)
 router.delete('/remove', checkAuhtUser, DeleteTeacherAction)
 

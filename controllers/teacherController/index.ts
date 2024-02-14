@@ -11,12 +11,12 @@ export const CreatedAction = async (
   next: NextFunction
 ) => {
   try {
-    const { name } = req.body;
+    const { name, description, image = req?.file?.path || undefined, workExperience } = req.body;
     const errors = myValidationResult(req).array();
     if (errors.length !== 0) {
       throw new HttpError(errors, 401, null);
     }
-    const data = await services.CreatedTeacher(name);
+    const data = await services.CreatedTeacher({ name, description, image, workExperience });
     res.json({ ...data });
   } catch (err) {
     next(err);
@@ -29,12 +29,12 @@ export const EditAction = async (
   next: NextFunction
 ) => {
   try {
-    const { name, id } = req.body;
+    const { name, description, image = req?.file?.path || undefined, workExperience, id } = req.body;
     const errors = myValidationResult(req).array();
     if (errors.length !== 0) {
       throw new HttpError(errors, 401, null);
     }
-    const data = await services.EditTeacher(name, id);
+    const data = await services.EditTeacher({ name, description, image, workExperience, id });
     res.json({ ...data });
   } catch (err) {
     next(err);

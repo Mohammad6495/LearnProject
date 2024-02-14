@@ -186,11 +186,17 @@ appRouter.use('/category', categoryRoutes)
 *       - BearerAuth: []
 *     requestBody:
 *       content:
-*         application/json:
+*         multipart/form-data:
 *           schema:
 *             type: object
 *             properties:
 *               name:
+*                 type: string
+*               description:
+*                 type: string
+*               image:
+*                 type: file
+*               workExperience:
 *                 type: string
 *     responses:
 *       '200':
@@ -207,13 +213,19 @@ appRouter.use('/category', categoryRoutes)
 *       - BearerAuth: []
 *     requestBody:
 *       content:
-*         application/json:
+*         multipart/form-data:
 *           schema:
 *             type: object
 *             properties:
-*               id:
-*                 type: string
 *               name:
+*                 type: string
+*               description:
+*                 type: string
+*               image:
+*                 type: file
+*               workExperience:
+*                 type: string
+*               id:
 *                 type: string
 *     responses:
 *       '200':
@@ -401,7 +413,9 @@ appRouter.use('/eductional', eductionalRoutes)
 *               price:
 *                 type: number
 *               teacher:
-*                 type: string
+*                 type: array
+*                 items:
+*                   type: string
 *             required:
 *               - title
 *               - periodTime
@@ -459,7 +473,9 @@ appRouter.use('/eductional', eductionalRoutes)
 *               price:
 *                 type: number
 *               teacher:
-*                 type: string
+*                 type: array
+*                 items:
+*                   type: string
 *             required:
 *               - id
 *               - title
@@ -536,7 +552,6 @@ appRouter.use('/eductional', eductionalRoutes)
 *       '200':
 *         description: Successful response
 */
-
 // changeavailable
 /**
 * @swagger

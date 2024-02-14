@@ -15,7 +15,7 @@ const CourseSchema = new Schema(
         startTime: { type: Date, required: false },
         isActive: { type: Boolean, require: false, default: true },
         isAvailable: { type: Boolean, require: false, default: true },
-        teacher: { type: Schema.Types.ObjectId, ref: "Teacher", require: true },
+        teacher: [{ type: Schema.Types.ObjectId, ref: "Teacher", require: true }],
         category: { type: Schema.Types.ObjectId, ref: "Category" , require: true},
         eductional: { type: Schema.Types.ObjectId, ref: "Eductional" , require: true},
         headLines: [{ type: String, require: false}],

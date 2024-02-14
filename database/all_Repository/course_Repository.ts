@@ -71,7 +71,7 @@ class CourseRepository {
         findCategory.eductional = eductional;
         findCategory.headLines = headLines as string[];
         findCategory.price = price as number;
-        findCategory.teacher = teacher;
+        findCategory.teacher = teacher as Types.ObjectId[];
         findCategory.startTime = startTime;
         findCategory.isAvailable = isAvailable as boolean;
         const editResult = await findCategory.save();

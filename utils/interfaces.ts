@@ -22,7 +22,7 @@ export interface ICourse {
   courseConditions?: string,
   price?: number,
   image?: string
-  teacher?: Types.ObjectId,
+  teacher?: Types.ObjectId[],
   category?: Types.ObjectId,
   eductional?: Types.ObjectId,
   isAvailable?: boolean,
@@ -32,6 +32,9 @@ export interface ICourse {
 export interface ITeacher {
   id?: string,
   name: string,
+  workExperience?: string,
+  description?: string,
+  image?: string
   course?: ICourse[]
 }
 

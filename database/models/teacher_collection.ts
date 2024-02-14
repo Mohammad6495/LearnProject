@@ -4,6 +4,9 @@ const Schema = mongoose.Schema;
 const TeacherSchema = new Schema(
   {
     name: { type: String, required: false },
+    workExperience: { type: String, required: false },
+    description: { type: String, required: false },
+    image: { type: String, required: false },
     courses: [{ type: Schema.Types.ObjectId, ref: "Course", require: false, default: [] }],
     isActive: { type: Boolean, require: false, default: true },
 
