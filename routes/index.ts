@@ -359,7 +359,6 @@ appRouter.use('/teacher', teacherRoutes)
 appRouter.use('/eductional', eductionalRoutes)
 // createdcourse
 /**
-/**
 * @swagger
 * /course/create:
 *   post:
@@ -391,6 +390,8 @@ appRouter.use('/eductional', eductionalRoutes)
 *                 type: string
 *               courseConditions:
 *                 type: string
+*               startTime:
+*                 type: string
 *               eductional:
 *                 type: string
 *               headLines:
@@ -412,7 +413,6 @@ appRouter.use('/eductional', eductionalRoutes)
 *       '200':
 *         description: Successful response
 */
-
 // editcourse
 /**
 * @swagger
@@ -447,6 +447,8 @@ appRouter.use('/eductional', eductionalRoutes)
 *               category:
 *                 type: string
 *               courseConditions:
+*                 type: string
+*               startTime:
 *                 type: string
 *               eductional:
 *                 type: string
@@ -525,6 +527,11 @@ appRouter.use('/eductional', eductionalRoutes)
 *                 type: array
 *                 items:
 *                   type: string
+*               sort:
+*                 type: integer
+*                 enum:
+*                   - 0
+*                   - 1
 *     responses:
 *       '200':
 *         description: Successful response

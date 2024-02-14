@@ -17,7 +17,8 @@ class CourseRepository {
         headLines,
         price,
         teacher,
-        isAvailable
+        isAvailable,
+        startTime
     }: ICourse) {
         const createdCourse = new Course({
             title: title,
@@ -32,7 +33,8 @@ class CourseRepository {
             price,
             teacher,
             timeHolding,
-            isAvailable
+            isAvailable,
+            startTime
         })
         const CourseResult = await createdCourse.save();
         return CourseResult
@@ -51,7 +53,8 @@ class CourseRepository {
         headLines,
         price,
         teacher,
-        isAvailable
+        isAvailable,
+        startTime
     }: ICourse) {
         const findCategory = await Course.findById(id);
         if (!findCategory) {
@@ -69,6 +72,7 @@ class CourseRepository {
         findCategory.headLines = headLines as string[];
         findCategory.price = price as number;
         findCategory.teacher = teacher;
+        findCategory.startTime = startTime;
         findCategory.isAvailable = isAvailable as boolean;
         const editResult = await findCategory.save();
         return editResult;
@@ -78,7 +82,8 @@ class CourseRepository {
         pageSize: string,
         search: string,
         categoryId: string,
-        courseConditions: string
+        courseConditions: string,
+        sort: number
     ) {
         const limit = parseInt(pageSize) || 10;
         const skip = (parseInt(currentPage) - 1) * limit || 0;
@@ -92,16 +97,26 @@ class CourseRepository {
         }
         if (categoryId) {
             searchCondition.category = { $in: categoryId.split(',').map(id => id) };
-        } 
+        }
 
         if (courseConditions) {
             searchCondition.courseConditions = { $in: courseConditions.split(',').map(condition => new RegExp(condition, 'i')) };
         }
-        
+
+        let sortCondition: Record<string, any> = {};
+
+        if (sort === 0) {
+            sortCondition = { viewCount: -1 };
+        } else if (sort === 1) {
+            sortCondition = { price: 1 };
+        } else {
+            sortCondition = { createdAt: -1 };
+        }
+
         const course = await Course.find({ ...searchCondition, isActive: true })
             .skip(skip)
             .limit(limit)
-            .sort({ createdAt: -1 })
+            .sort(sortCondition)
             .populate('teacher')
             .populate('category')
             .populate('eductional');
@@ -191,6 +206,17 @@ class CourseRepository {
         }
 
         return findCours
+    }
+
+    async PlusViewCount(id: Types.ObjectId) {
+        const validObjectId = Types.ObjectId.isValid(id);
+        if (!validObjectId) {
+            throw new HttpError(["فرمت شناسه نادرست است!"], 422);
+        }
+        const data = await this.FindCourse(id);
+        data.viewCount = +1;
+        await data.save();
+        return data
     }
 }
 

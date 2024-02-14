@@ -21,11 +21,12 @@ export interface ICourse {
   description?: string,
   courseConditions?: string,
   price?: number,
-  image?:string
+  image?: string
   teacher?: Types.ObjectId,
   category?: Types.ObjectId,
   eductional?: Types.ObjectId,
-  isAvailable?:boolean,
+  isAvailable?: boolean,
+  startTime?: Date,
   headLines?: string[]
 }
 export interface ITeacher {
@@ -56,12 +57,12 @@ export interface IHeadLines {
 export interface IFamiliarService {
   id?: string,
   phoneNumber?: string,
-  favoriotArea?:string
+  favoriotArea?: string
 }
 
 export interface IRequestCourse {
   id?: string,
   phoneNumber?: string,
-  favoriotArea?:string,
+  favoriotArea?: string,
   course?: Types.ObjectId
 }

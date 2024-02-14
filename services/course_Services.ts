@@ -27,7 +27,8 @@ class CourseServices {
     headLines,
     price,
     isAvailable,
-    teacher
+    teacher,
+    startTime
   }: ICourse) {
     const createdCourse = await this.repository.Created({
       title,
@@ -42,7 +43,8 @@ class CourseServices {
       headLines,
       price,
       teacher,
-      isAvailable
+      isAvailable,
+      startTime
     });
     return FormateData({ data: createdCourse.toObject({ getters: true }) });
   }
@@ -61,7 +63,8 @@ class CourseServices {
     headLines,
     price,
     teacher,
-    isAvailable
+    isAvailable,
+    startTime
   }: ICourse) {
     const editCourse = await this.repository.Edit({
       id,
@@ -77,7 +80,8 @@ class CourseServices {
       headLines,
       price,
       isAvailable,
-      teacher
+      teacher,
+      startTime
     });
     return FormateData({ data: editCourse.toObject({ getters: true }) });
   }
@@ -90,9 +94,10 @@ class CourseServices {
     pageSize: string,
     search: string,
     categoryId: string,
-    courseConditions: string
+    courseConditions: string,
+    sort:number
   ) {
-    const getCourse = await this.repository.GetAll(currentPage, pageSize, search, categoryId, courseConditions);
+    const getCourse = await this.repository.GetAll(currentPage, pageSize, search, categoryId, courseConditions, sort);
     return FormateData({ data: getCourse });
   }
   async DeleteCourse(id: Types.ObjectId) {
@@ -104,6 +109,7 @@ class CourseServices {
     return FormateData({ data: data });
   }
   async DetailsCourse(id: Types.ObjectId) {
+    await this.repository.PlusViewCount(id);
     const data = await this.repository.FindCourse(id);
     return FormateData({ data: data.toObject({ getters: true }) });
   }

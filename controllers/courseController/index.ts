@@ -25,7 +25,8 @@ export const CreatedAction = async (
       headLines,
       price,
       teacher,
-      isAvailable
+      isAvailable,
+      startTime
     } = req.body;
     const errors = myValidationResult(req).array();
     if (errors.length !== 0) {
@@ -44,7 +45,8 @@ export const CreatedAction = async (
       headLines,
       price,
       teacher,
-      isAvailable
+      isAvailable,
+      startTime
     });
     res.json({ ...data });
   } catch (err) {
@@ -72,7 +74,8 @@ export const EditAction = async (
       headLines,
       price,
       teacher,
-      isAvailable
+      isAvailable,
+      startTime
     } = req.body;
     const errors = myValidationResult(req).array();
     if (errors.length !== 0) {
@@ -92,7 +95,8 @@ export const EditAction = async (
       headLines,
       price,
       teacher,
-      isAvailable
+      isAvailable,
+      startTime
     });
     res.json({ ...data });
   } catch (err) {
@@ -121,9 +125,9 @@ export const GetAllClientAction = async (
   next: NextFunction
 ) => {
   try {
-    const { pageSize, currentPage, search, categoryId, courseConditions } = req.body;
+    const { pageSize, currentPage, search, categoryId, courseConditions, sort } = req.body;
 
-    const data = await services.GetCourseClient(currentPage as string, pageSize as string, search as string, categoryId as any, courseConditions as string);
+    const data = await services.GetCourseClient(currentPage as string, pageSize as string, search as string, categoryId as any, courseConditions as string, sort as number);
     res.json({ ...data });
   } catch (err) {
     next(err);
