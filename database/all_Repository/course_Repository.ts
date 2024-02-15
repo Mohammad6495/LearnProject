@@ -105,9 +105,9 @@ class CourseRepository {
 
         let sortCondition: Record<string, any> = {};
 
-        if (sort === 0) {
+        if (sort == 0) {
             sortCondition = { viewCount: -1 };
-        } else if (sort === 1) {
+        } else if (sort == 1) {
             sortCondition = { price: 1 };
         } else {
             sortCondition = { createdAt: -1 };
@@ -213,11 +213,16 @@ class CourseRepository {
         if (!validObjectId) {
             throw new HttpError(["فرمت شناسه نادرست است!"], 422);
         }
-        const data = await this.FindCourse(id);
-        data.viewCount = +1;
-        await data.save();
-        return data
+    
+        const updatedCourse = await Course.findByIdAndUpdate(
+            id,
+            { $inc: { viewCount: 1 } },
+            { new: true }
+        );
+    
+        return updatedCourse;
     }
+    
 }
 
 export default CourseRepository;

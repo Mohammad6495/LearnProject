@@ -21,7 +21,7 @@ class TeacherRepository {
         }
         findCategory.description = description as string;
         findCategory.name = name as string;
-        findCategory.image = image as string;
+        findCategory.image = image ? image : findCategory.image as string;
         findCategory.workExperience = workExperience as string;
         const editResult = await findCategory.save();
         return editResult;
