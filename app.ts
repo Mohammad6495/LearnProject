@@ -20,6 +20,10 @@ const options: swaggerJSDoc.Options = {
         servers: [
             {
                 url: 'http://91.206.177.124:5000',
+            }
+            ,
+            {
+                url: 'http://api.ga-app.ir',
             },
             {
                 url: SERVER_LOAD,

@@ -1,7 +1,8 @@
 import { Types } from "mongoose";
 import HttpError from "../../utils/app_error";
 import Eductional from "../models/eductional_collection";
-import {  IEductional } from "../../utils/interfaces";
+import { IEductional } from "../../utils/interfaces";
+import Course from "../models/course_collection";
 
 class EductionalRepository {
     async Created({ name, description }: IEductional) {
@@ -48,9 +49,16 @@ class EductionalRepository {
 
     async Delete({ id }: { id: Types.ObjectId }) {
         const validObjectId = Types.ObjectId.isValid(id);
-        if(!validObjectId) {
-           throw new HttpError(["فرمت شناسه نادرست است!"], 422);
+        if (!validObjectId) {
+            throw new HttpError(["فرمت شناسه نادرست است!"], 422);
         }
+        const findCourse = await Course.findOne({ eductional: id });;
+        if (findCourse) {
+            const oneEduc = await Eductional.findOne({ id: { $ne: id } })
+            findCourse.eductional = oneEduc?.id;
+            await findCourse.save()
+        }
+
         const deletedEductional = await Eductional.findOneAndDelete({ _id: id });
 
         if (!deletedEductional) {
